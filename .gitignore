@@ -11,3 +11,5 @@ PhoneMouse_Alpha_*.zip
 
 .DS_Store
 Thumbs.db
+
+artifacts/
