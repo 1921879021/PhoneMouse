@@ -1,0 +1,13 @@
+﻿.vs/
+**/bin/
+**/obj/
+*.user
+*.suo
+*.cache
+*.log
+
+PhoneMouse_Alpha_*.zip
+*_Backup.zip
+
+.DS_Store
+Thumbs.db
