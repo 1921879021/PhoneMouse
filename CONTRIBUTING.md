@@ -1,4 +1,4 @@
-# Contributing
+﻿# Contributing
 
 感谢关注 Phone Mouse。
 
@@ -21,8 +21,9 @@ SECURITY.md
 
 - Windows 版本
 - 手机系统
-- 浏览器
+- 手机浏览器 / 微信内置浏览器
 - Phone Mouse 版本
+- 当前方向模式：竖屏 / 横放口左 / 横放口右
 - 完整错误信息
 - 复现步骤
 - 是否能稳定复现
@@ -41,11 +42,12 @@ dotnet build PhoneMouse.sln --no-incremental
 建议：
 
 1. 一个 PR 只解决一类问题。
-2. 不要把 `bin/`、`obj/`、`.vs/` 提交到仓库。
+2. 不要把 `bin/`、`obj/`、`.vs/`、`*.bak-*` 提交到仓库。
 3. 修改 WebSocket 协议时同步更新 `docs/PROTOCOL.md`。
 4. 修改设置项时考虑旧配置文件兼容。
 5. 修改 Native Input 时在 Windows x64 真机验证。
-6. 高权限操作必须保留认证和安全检查。
+6. 修改手机手势时同时测试竖屏、横放口左、横放口右。
+7. 高权限操作必须保留认证和安全检查。
 
 ## Commit Message
 
@@ -54,6 +56,7 @@ dotnet build PhoneMouse.sln --no-incremental
 ```text
 Fix Android soft keyboard focus
 Add WeChat foreground detection
+Add landscape touch orientation modes
 Improve WebSocket device authentication
 Add Portable release pipeline
 ```

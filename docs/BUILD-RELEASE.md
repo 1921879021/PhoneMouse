@@ -1,4 +1,6 @@
-# Build & Release
+﻿# Build & Release
+
+当前参考版本：**Alpha 0.7.2.6.1**
 
 ## Debug Build
 
@@ -24,24 +26,17 @@ dotnet build PhoneMouse.sln `
 
 ## Portable
 
-如果仓库中已经安装：
+仓库已经配置：
 
 ```text
 scripts/Publish-Portable.ps1
 ```
 
-执行：
+本机发布：
 
 ```powershell
 .\scripts\Publish-Portable.ps1 `
-    -Version 0.7.2.3-alpha
-```
-
-目标：
-
-```text
-artifacts/
-└─ PhoneMouse_Alpha_0.7.2.3-alpha_Portable_win-x64.zip
+    -Version 0.7.2.6.1-alpha
 ```
 
 Portable 目标：
@@ -53,13 +48,13 @@ Portable 目标：
 
 ## GitHub Actions
 
-仓库可使用：
+工作流：
 
 ```text
 .github/workflows/build-portable.yml
 ```
 
-进入：
+手动运行：
 
 ```text
 GitHub
@@ -70,16 +65,23 @@ GitHub
 
 ## Tag / Release
 
-示例：
+当前标签示例：
 
 ```powershell
-git tag -a v0.7.2.3-alpha `
-    -m "Phone Mouse Alpha 0.7.2.3"
+git tag -a v0.7.2.6.1-alpha `
+    -m "Phone Mouse Alpha 0.7.2.6.1"
 
-git push origin v0.7.2.3-alpha
+git push origin v0.7.2.6.1-alpha
 ```
 
-如果 GitHub Actions Release 工作流已经配置完成，可自动生成 Release Artifact。
+标签推送后，工作流可自动：
+
+```text
+编译
+→ 生成 Portable ZIP
+→ 生成 SHA256
+→ 创建 GitHub Release
+```
 
 ## 发布前检查
 
@@ -95,9 +97,11 @@ git push origin v0.7.2.3-alpha
 - 鼠标移动
 - 左右键
 - 拖拽
-- 滚轮
+- 双指滚轮
+- 竖屏模式
+- 横放 · 充电口朝左
+- 横放 · 充电口朝右
 - 中文输入
-- VoiceNotes
 - 微信识别
 - Enter
 - Ctrl+Enter
@@ -105,7 +109,7 @@ git push origin v0.7.2.3-alpha
 
 ## SmartScreen
 
-当前 Alpha 版本若没有数字签名，可能看到：
+Alpha 版本若没有数字签名，可能看到：
 
 ```text
 Windows 已保护你的电脑

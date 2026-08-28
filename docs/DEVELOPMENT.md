@@ -1,6 +1,8 @@
-# Development Guide
+﻿# Development Guide
 
 本文档面向希望阅读源码、修改功能或进行二次开发的开发者。
+
+当前参考版本：**Alpha 0.7.2.6.1**
 
 ## 技术栈
 
@@ -48,13 +50,10 @@ Windows 系统能力
 ```text
 src/PhoneMouse.Core/Input/IMouseController.cs
 src/PhoneMouse.Core/Input/IKeyboardController.cs
-
 src/PhoneMouse.Core/Input/WindowsMouseController.cs
 src/PhoneMouse.Core/Input/WindowsKeyboardController.cs
-
 src/PhoneMouse.Core/Native/NativeInput.cs
 src/PhoneMouse.Core/Native/NativeKeyboardInput.cs
-
 src/PhoneMouse.Core/Windows/WindowsForegroundWindowService.cs
 ```
 
@@ -70,21 +69,13 @@ KEYBDINPUT
 HARDWAREINPUT
 ```
 
-否则：
-
-```text
-SendInput
-→ 返回 0
-→ Win32 error 87
-```
-
-也就是：
+否则 `SendInput` 可能返回 0，并出现 Win32 error 87：
 
 ```text
 ERROR_INVALID_PARAMETER
 ```
 
-修改 Native Input 代码后，一定要重新测试：
+修改 Native Input 后至少重新测试：
 
 - 英文
 - 中文
@@ -118,12 +109,12 @@ GET  /ws
 返回手机端页面：
 
 ```text
-src/PhoneMouse.Server/Web/TouchpadPage.cs
+src/PhoneMouse.Server/web/TouchpadPage.cs
 ```
 
 目前前端 HTML / CSS / JS 被作为 C# 字符串内嵌。
 
-修改手机页面后，建议：
+修改手机页面后建议：
 
 ```powershell
 dotnet build PhoneMouse.sln --no-incremental
@@ -131,19 +122,53 @@ dotnet build PhoneMouse.sln --no-incremental
 
 并重新启动 Desktop。
 
-如果手机仍显示旧页面：
-
-```text
-关闭旧标签页
-→ 新开标签页
-→ URL 后增加新的 ?v=xxx
-```
-
-例如：
+如果手机仍显示旧页面，可以关闭旧标签页，重新访问并增加版本查询参数，例如：
 
 ```text
 http://192.168.1.102:9527/?v=dev2
 ```
+
+## 手机方向映射
+
+Alpha 0.7.2.6 起，手机触控板支持：
+
+```text
+portrait
+landscape-left
+landscape-right
+```
+
+选择值保存在手机浏览器：
+
+```text
+localStorage
+```
+
+当前键名：
+
+```text
+PhoneMouse.OrientationMode
+```
+
+方向映射同时影响：
+
+- 主触控板单指移动
+- 主触控板长按拖拽
+- 主触控板双指滚轮
+- 语音 / 文字页的小触控板
+
+二次开发时，如果新增其他基于相对位移的手势，应复用统一的方向变换逻辑，避免各模块方向不一致。
+
+## 双指滚动
+
+Alpha 0.7.2.6 默认滚动语义：
+
+```text
+双指向上 -> 页面向下
+双指向下 -> 页面向上
+```
+
+电脑端的 `naturalScrolling` 设置仍保留，用于再次反转。
 
 ## Security
 
@@ -194,7 +219,7 @@ src/PhoneMouse.Desktop/MainWindow.xaml
 src/PhoneMouse.Desktop/MainWindow.xaml.cs
 ```
 
-Desktop 负责实例化：
+Desktop 负责组合：
 
 ```text
 WindowsMouseController
@@ -215,8 +240,6 @@ src/PhoneMouse.Desktop/Services/QrCodeService.cs
 
 当前 QR 为纯本地实现，不依赖第三方在线 API。
 
-这样即使互联网不可用，只要局域网可用，二维码仍然能生成。
-
 ## TXT
 
 ```text
@@ -229,15 +252,11 @@ src/PhoneMouse.Server/Notes/VoiceNoteService.cs
 Documents\PhoneMouse\VoiceNotes.txt
 ```
 
-使用：
-
-```text
-UTF-8 BOM
-```
+当前手机 UI 不显示写入按钮，但后端能力保留。
 
 ## 调试建议
 
-### 检查端口
+检查端口：
 
 ```powershell
 Get-NetTCPConnection `
@@ -245,7 +264,7 @@ Get-NetTCPConnection `
     -ErrorAction SilentlyContinue
 ```
 
-### 检查服务器版本
+检查服务器页面版本：
 
 ```powershell
 $response = Invoke-WebRequest `
@@ -255,7 +274,7 @@ $response.Content |
 Select-String "Alpha"
 ```
 
-### 强制重新编译
+强制重新编译：
 
 ```powershell
 dotnet build PhoneMouse.sln --no-incremental
@@ -271,3 +290,5 @@ dotnet build PhoneMouse.sln --no-incremental
 4. WebSocket 消息尽量保持向后兼容。
 5. 所有高权限操作必须经过设备认证。
 6. 发送类操作必须考虑误触和前台窗口安全检查。
+7. 新增手势时统一经过方向变换逻辑。
+8. 手机端全局 `preventDefault()` 要注意不要拦截真正的按钮控件。

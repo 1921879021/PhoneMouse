@@ -1,57 +1,81 @@
 ﻿# Phone Mouse
 
-> 鐢ㄦ墜鏈烘祻瑙堝櫒鍦ㄥ眬鍩熺綉鍐呮帶鍒?Windows 榧犳爣銆佽緭鍏ユ枃瀛楋紝骞舵敮鎸佸井淇″畨鍏ㄥ彂閫併€?
-**褰撳墠婧愮爜鐗堟湰锛欰lpha 0.7.2.3**
+> 用手机浏览器在局域网内控制 Windows 鼠标、输入文字，并支持微信安全发送。
 
-Phone Mouse 鏄竴涓?Windows + 鎵嬫満娴忚鍣ㄧ殑灞€鍩熺綉閬ユ帶宸ュ叿銆傜數鑴戠杩愯 WPF 妗岄潰绋嬪簭骞跺惎鍔ㄦ湰鍦?ASP.NET Core 鏈嶅姟锛屾墜鏈洪€氳繃娴忚鍣ㄨ繛鎺ョ數鑴戯紝鏃犻渶瀹夎鎵嬫満 App銆?
-## 鍔熻兘
+**当前源码版本：Alpha 0.7.2.6.1**
 
-- 鎵嬫満瑙︽帶鏉挎帶鍒?Windows 榧犳爣
-  - 鍗曟寚绉诲姩
-  - 宸﹂敭 / 鍙抽敭
-  - 鍙屽嚮
-  - 闀挎寜鎷栨嫿
-  - 鍙屾寚婊氳疆
-- 鎺у埗浣撻獙鍙皟
-  - 榧犳爣鐏垫晱搴?  - 婊氳疆閫熷害
-  - 鑷劧婊氬姩
-  - 闀挎寜鏃堕棿
-- 瀹夊叏閰嶅
-  - 涓€娆℃€?Pair Token
-  - 闀挎湡 Device Token
-  - 宸查厤瀵硅澶囩鐞?  - 鍦ㄧ嚎 / 绂荤嚎鐘舵€?  - 鍗曡澶囨挙閿€ / 鍏ㄩ儴鎾ら攢
-- 鏈湴浜岀淮鐮佽繛鎺?- 鎵嬫満璇煶 / 鏂囧瓧杈撳叆
-  - 浣跨敤鎵嬫満绯荤粺閿洏鐨勯害鍏嬮杩涜璇煶杞枃瀛?  - 鍐欏叆 `VoiceNotes.txt`
-  - 杈撳叆鍒扮數鑴戝綋鍓嶇獥鍙?- 寰俊瀹夊叏鍙戦€?  - 鑷姩妫€娴嬬數鑴戝綋鍓嶅墠鍙扮獥鍙ｆ槸鍚︿负寰俊
-  - 闈炲井淇＄獥鍙ｆ椂闃绘鍙戦€?  - 鏀寔 `Enter` / `Ctrl + Enter`
-- 璇煶 / 鏂囧瓧椤甸潰鍐呭祵灏忓瀷瑙︽帶鏉?
-## 椤圭洰鏋舵瀯
+Phone Mouse 是一个 Windows + 手机浏览器的局域网遥控工具。电脑端运行 WPF 桌面程序并启动本地 ASP.NET Core 服务，手机通过浏览器连接电脑，无需安装手机 App。
+
+## 功能
+
+- 手机触控板控制 Windows 鼠标
+  - 单指移动
+  - 左键 / 右键
+  - 双击
+  - 长按拖拽
+  - 双指滚轮
+- 手机摆放方向切换
+  - 竖屏
+  - 横放 · 充电口朝左
+  - 横放 · 充电口朝右
+  - 方向选择自动保存在手机浏览器中
+- 双指滚动
+  - 默认：双指向上滑 → 页面向下滚动
+  - 默认：双指向下滑 → 页面向上滚动
+  - 可通过电脑端“自然滚动”设置再次反转
+- 控制体验可调
+  - 鼠标灵敏度
+  - 滚轮速度
+  - 自然滚动
+  - 长按时间
+- 安全配对
+  - 一次性 Pair Token
+  - 长期 Device Token
+  - 已配对设备管理
+  - 在线 / 离线状态
+  - 单设备撤销 / 全部撤销
+- 本地二维码连接
+- 手机语音 / 文字输入
+  - 使用手机系统键盘麦克风进行语音转文字
+  - 输入到电脑当前窗口
+  - 输入框内直接提供发送按钮，软键盘打开时也方便操作
+- 微信安全发送
+  - 自动检测电脑当前前台窗口是否为微信
+  - 非微信窗口时阻止发送
+  - 支持 `Enter` / `Ctrl + Enter`
+- 语音 / 文字页面内嵌小型触控板
+- 后端仍保留 `VoiceNotes.txt` 写入能力，当前手机 UI 默认不显示该按钮
+
+## 项目架构
 
 ```text
 PhoneMouse
-鈹溾攢 src
-鈹? 鈹溾攢 PhoneMouse.Core
-鈹? 鈹? 鈹溾攢 Input
-鈹? 鈹? 鈹溾攢 Native
-鈹? 鈹? 鈹斺攢 Windows
-鈹? 鈹?鈹? 鈹溾攢 PhoneMouse.Server
-鈹? 鈹? 鈹溾攢 Network
-鈹? 鈹? 鈹溾攢 Notes
-鈹? 鈹? 鈹溾攢 Security
-鈹? 鈹? 鈹溾攢 Settings
-鈹? 鈹? 鈹溾攢 Web
-鈹? 鈹? 鈹斺攢 ServerHost.cs
-鈹? 鈹?鈹? 鈹斺攢 PhoneMouse.Desktop
-鈹?    鈹溾攢 Services
-鈹?    鈹溾攢 MainWindow.xaml
-鈹?    鈹斺攢 MainWindow.xaml.cs
-鈹?鈹溾攢 PhoneMouse.sln
-鈹斺攢 global.json
+├─ src
+│  ├─ PhoneMouse.Core
+│  │  ├─ Input
+│  │  ├─ Native
+│  │  └─ Windows
+│  │
+│  ├─ PhoneMouse.Server
+│  │  ├─ Network
+│  │  ├─ Notes
+│  │  ├─ Security
+│  │  ├─ Settings
+│  │  ├─ web
+│  │  └─ ServerHost.cs
+│  │
+│  └─ PhoneMouse.Desktop
+│     ├─ Services
+│     ├─ MainWindow.xaml
+│     └─ MainWindow.xaml.cs
+│
+├─ PhoneMouse.sln
+└─ global.json
 ```
 
 ### PhoneMouse.Core
 
-璐熻矗 Windows 鏈湴杈撳叆涓庣獥鍙ｈ兘鍔涳細
+负责 Windows 本地输入与窗口能力：
 
 - `WindowsMouseController`
 - `WindowsKeyboardController`
@@ -59,43 +83,54 @@ PhoneMouse
 - `NativeKeyboardInput`
 - `WindowsForegroundWindowService`
 
-搴曞眰浣跨敤 Win32 `SendInput`銆?
+底层使用 Win32 `SendInput`。
+
 ### PhoneMouse.Server
 
-璐熻矗灞€鍩熺綉 HTTP / WebSocket 鏈嶅姟锛?
-- Kestrel
-- WebSocket 鎺у埗閫氶亾
-- 璁惧璁よ瘉
-- 閰嶅 Token
-- 鎺у埗璁剧疆鍚屾
-- TXT 鍐欏叆
-- 鎵嬫満缃戦〉
+负责局域网 HTTP / WebSocket 服务：
 
-榛樿鐩戝惉锛?
+- Kestrel
+- WebSocket 控制通道
+- 设备认证
+- 配对 Token
+- 控制设置同步
+- TXT 写入能力
+- 手机网页
+
+默认监听：
+
 ```text
 http://0.0.0.0:9527
 ```
 
 ### PhoneMouse.Desktop
 
-Windows WPF 鎺у埗涓績锛?
-- 鏄剧ず灞€鍩熺綉璁块棶鍦板潃
-- 鏄剧ず浜岀淮鐮?- 绠＄悊宸查厤瀵硅澶?- 璋冩暣榧犳爣涓庢粴杞弬鏁?- 璁剧疆寰俊鍙戦€佸揩鎹烽敭
+Windows WPF 控制中心：
 
-## 寮€鍙戠幆澧?
-鎺ㄨ崘锛?
+- 显示局域网访问地址
+- 显示二维码
+- 管理已配对设备
+- 调整鼠标与滚轮参数
+- 设置微信发送快捷键
+
+## 开发环境
+
+推荐：
+
 - Windows 10 / 11 x64
 - .NET SDK 10.0.400
-- Visual Studio 2026 鎴栨敮鎸?.NET 10 鐨?Visual Studio
+- Visual Studio 2026 或支持 .NET 10 的 Visual Studio
 - Git
 
-浠撳簱涓殑 `global.json` 浼氬浐瀹?.NET SDK 鐗堟湰銆?
-鏌ョ湅 SDK锛?
+仓库中的 `global.json` 用于固定 .NET SDK 版本。
+
+查看 SDK：
+
 ```powershell
 dotnet --list-sdks
 ```
 
-## 缂栬瘧
+## 编译
 
 ```powershell
 git clone https://github.com/1921879021/PhoneMouse.git
@@ -105,145 +140,200 @@ cd PhoneMouse
 dotnet build PhoneMouse.sln --no-incremental
 ```
 
-杩愯锛?
+运行：
+
 ```powershell
 dotnet ".\src\PhoneMouse.Desktop\bin\Debug\net10.0-windows\PhoneMouse.Desktop.dll"
 ```
 
-鎴栬€咃細
+或者：
 
 ```powershell
 dotnet run --project src\PhoneMouse.Desktop
 ```
 
-## 浣跨敤
+## 使用
 
-1. 鍦?Windows 鐢佃剳杩愯 Phone Mouse銆?2. 纭繚鎵嬫満鍜岀數鑴戝浜庡悓涓€涓?Wi-Fi / 灞€鍩熺綉銆?3. 鐢佃剳绐楀彛浼氭樉绀虹被浼硷細
+1. 在 Windows 电脑运行 Phone Mouse。
+2. 确保手机和电脑处于同一个 Wi-Fi / 局域网。
+3. 电脑窗口会显示类似：
 
 ```text
 http://192.168.1.102:9527
 ```
 
-4. 鎵嬫満鎵弿鐢佃剳鏄剧ず鐨勪竴娆℃€т簩缁寸爜銆?5. 棣栨瀹屾垚瀹夊叏閰嶅鍚庯紝鍗冲彲鎺у埗榧犳爣銆?6. 鍚庣画宸叉巿鏉冭澶囧彲鐩存帴璁块棶鏅€氬眬鍩熺綉鍦板潃銆?
-## 鎵嬫満璇煶杈撳叆
+4. 手机扫描电脑显示的一次性二维码。
+5. 首次完成安全配对后，即可控制鼠标。
+6. 后续已授权设备可直接访问普通局域网地址。
 
-Phone Mouse 褰撳墠涓嶇洿鎺ヨ皟鐢ㄦ祻瑙堝櫒 Speech API銆?
-浣跨敤娴佺▼锛?
+## 竖屏 / 横放模式
+
+主触控板提供三种手机摆放模式：
+
 ```text
-鎵嬫満鎵撳紑鈥滆闊?/ 鏂囧瓧鈥?鈫?鐐瑰嚮鈥滄墦寮€鎵嬫満閿洏 / 璇煶杈撳叆鈥?鈫?鐐瑰嚮鎵嬫満绯荤粺閿洏鑷甫楹﹀厠椋?鈫?绯荤粺瀹屾垚璇煶杞枃瀛?鈫?Phone Mouse 灏嗘枃瀛楀彂閫佺粰鐢佃剳
+竖屏
+横放 · 口左
+横放 · 口右
 ```
 
-杩欐牱鍙互閬垮厤 HTTP 灞€鍩熺綉椤靛湪涓嶅悓 Android / iOS 娴忚鍣ㄤ腑鐨勯害鍏嬮鏉冮檺鍏煎闂銆?
-## VoiceNotes.txt
+其中“口左 / 口右”指手机充电口朝向。
 
-鎵嬫満鐐瑰嚮锛?
+之所以采用用户手动选择，而不是完全自动判断，是因为手机网页和部分内置 WebView 在自动旋转关闭、方向锁定或不同厂商系统下，不一定能可靠获得真实的设备摆放方向。
+
+选择结果保存在手机浏览器的 `localStorage` 中，下次打开会继续使用上一次选择。
+
+## 手机语音输入
+
+Phone Mouse 当前不直接调用浏览器 Speech API。
+
+使用流程：
+
 ```text
-鍐欏叆 VoiceNotes.txt
+进入“语音 / 文字”
+→ 点击文字输入框
+→ 手机系统键盘弹出
+→ 点击系统键盘麦克风
+→ 系统完成语音转文字
+→ 点击输入框底部操作按钮发送到电脑
 ```
 
-榛樿鍐欏叆锛?
-```text
-Windows 鏂囨。鐩綍\PhoneMouse\VoiceNotes.txt
-```
+这样可以避开局域网 HTTP 页面在不同 Android / iOS 浏览器中的麦克风权限兼容问题。
 
-渚嬪锛?
-```text
-C:\Users\<User>\Documents\PhoneMouse\VoiceNotes.txt
-```
+## 微信安全发送
 
-鏂囦欢浣跨敤 UTF-8 BOM锛屾柟渚?Windows PowerShell 5.1 鍜岃浜嬫湰姝ｇ‘璇嗗埆涓枃銆?
-## 寰俊瀹夊叏鍙戦€?
-鎵嬫満绔細鎸佺画妫€鏌ョ數鑴戝綋鍓嶅墠鍙扮獥鍙ｃ€?
-妫€娴嬪埌寰俊锛?
-```text
-鉁?褰撳墠鐢佃剳鍓嶅彴绐楀彛锛氬井淇?```
+手机端会持续检查电脑当前前台窗口。
 
-姝ゆ椂鍏佽锛?
-```text
-寰俊瀹夊叏鍙戦€?```
+检测到微信时允许“微信发送”；如果电脑当前不是微信，手机按钮会被锁定，并且服务端还会再次检查，降低误发送风险。
 
-濡傛灉鐢佃剳褰撳墠涓嶆槸寰俊锛屽垯鍓嶇鎸夐挳閿佸畾锛屽苟涓旀湇鍔＄涔熶細鍐嶆妫€鏌ワ紝闃叉璇彂閫併€?
-鏀寔锛?
+支持：
+
 ```text
 Enter
 Ctrl + Enter
 ```
 
-鍙湪鐢佃剳绔?Phone Mouse 璁剧疆涓垏鎹€?
-## 瀹夊叏璇存槑
+可在电脑端 Phone Mouse 设置中切换。
 
-褰撳墠鐗堟湰浣跨敤锛?
+## VoiceNotes.txt
+
+后端仍保留 `text_save` / `VoiceNotes.txt` 能力，默认路径：
+
+```text
+Windows 文档目录\PhoneMouse\VoiceNotes.txt
+```
+
+例如：
+
+```text
+C:\Users\<User>\Documents\PhoneMouse\VoiceNotes.txt
+```
+
+当前 Alpha 0.7.2.6.1 的手机界面已经取消“写入 VoiceNotes.txt”按钮，以减少界面占用，但协议能力仍保留用于兼容和二次开发。
+
+## 安全说明
+
+当前版本使用：
+
 ```text
 HTTP
 ws://
 ```
 
-杩樻病鏈?HTTPS / WSS銆?
-鍥犳鍙缓璁湪浠ヤ笅鐜浣跨敤锛?
-- 瀹跺涵 Wi-Fi
-- 鍙俊浠诲叕鍙稿唴缃?- 涓汉鐑偣
+还没有 HTTPS / WSS。
 
-涓嶈鍦ㄤ笉鍙俊鍏叡 Wi-Fi 涓婁娇鐢ㄣ€?
-鐢佃剳绔繚瀛樼殑鏄?Device Token 鐨?SHA-256 鍝堝笇锛岃€屼笉鏄師濮?Token銆?
-璁惧鏁版嵁浣嶄簬锛?
+因此只建议在以下环境使用：
+
+- 家庭 Wi-Fi
+- 可信任公司内网
+- 个人热点
+
+不要在不可信公共 Wi-Fi 上使用。
+
+电脑端保存的是 Device Token 的 SHA-256 哈希，而不是原始 Token。
+
+设备数据位于：
+
 ```text
 %LOCALAPPDATA%\PhoneMouse\
 ```
 
-涓昏鍖呮嫭锛?
+主要包括：
+
 ```text
 trusted-devices.json
 control-settings.json
 ```
 
-## Windows 闃茬伀澧?
-Phone Mouse 榛樿鐩戝惉 TCP `9527`銆?
-绗竴娆¤繍琛屾椂 Windows 鍙兘璇㈤棶鏄惁鍏佽缃戠粶璁块棶銆?
-寤鸿鍙厑璁革細
+## Windows 防火墙
+
+Phone Mouse 默认监听 TCP `9527`。
+
+第一次运行时 Windows 可能询问是否允许网络访问。建议只允许：
 
 ```text
-涓撶敤缃戠粶
+专用网络
 ```
 
-涓嶅缓璁叧闂?Windows Defender 鎴栨暣涓槻鐏銆?
-## Portable 鐗堟湰
+不建议关闭 Windows Defender 或整个防火墙。
 
-椤圭洰宸茬粡棰勭暀 Portable 鍙戝竷娴佺▼銆?
-鐩爣鍙戝竷褰㈠紡锛?
+## Portable 版本
+
+项目已配置 GitHub Actions Portable 发布流程。
+
+目标发布形式：
+
 ```text
 PhoneMouse.exe
 ```
 
-娴嬭瘯鐢ㄦ埛鏃犻渶瀹夎 Visual Studio 鎴?.NET SDK銆?
-鍙戝竷鐩稿叧璇存槑瑙侊細
+测试用户无需安装 Visual Studio 或 .NET SDK。
+
+构建说明见：
 
 ```text
 docs/BUILD-RELEASE.md
 ```
 
-## 浜屾寮€鍙?
-璇峰厛闃呰锛?
-- [寮€鍙戞寚鍗梋(docs/DEVELOPMENT.md)
-- [WebSocket 鍗忚](docs/PROTOCOL.md)
-- [鏋勫缓涓庡彂甯僝(docs/BUILD-RELEASE.md)
-- [瀹夊叏璇存槑](SECURITY.md)
-- [璐＄尞鎸囧崡](CONTRIBUTING.md)
+## 二次开发
 
-## 宸茬煡闄愬埗
+请先阅读：
 
-- 褰撳墠鍙敮鎸?Windows銆?- 褰撳墠涓哄眬鍩熺綉妯″紡銆?- HTTP / WebSocket 灏氭湭鍔犲瘑銆?- 寰俊妫€娴嬩緷璧?Windows 鍓嶅彴杩涚▼璇嗗埆銆?- 涓嶅悓鐗堟湰寰俊鐨勮繘绋嬪悕鍜屽揩鎹烽敭琛屼负鍙兘瀛樺湪宸紓銆?- 褰撳墠璇煶璇嗗埆渚濊禆鎵嬫満绯荤粺閿洏鎻愪緵鐨勮闊宠緭鍏ヨ兘鍔涖€?- 浠嶅浜?Alpha 闃舵锛屼笉寤鸿鐢ㄤ簬鐢熶骇鐜鎴栧叧閿笟鍔°€?
+- [开发指南](docs/DEVELOPMENT.md)
+- [WebSocket 协议](docs/PROTOCOL.md)
+- [构建与发布](docs/BUILD-RELEASE.md)
+- [安全说明](SECURITY.md)
+- [贡献指南](CONTRIBUTING.md)
+- [更新记录](CHANGELOG.md)
+
+## 已知限制
+
+- 当前只支持 Windows。
+- 当前主要面向局域网使用。
+- HTTP / WebSocket 尚未加密。
+- 微信检测依赖 Windows 前台进程识别。
+- 不同版本微信的进程名和快捷键行为可能存在差异。
+- 当前语音识别依赖手机系统键盘提供的语音输入能力。
+- 横放方向由用户手动选择。
+- 仍处于 Alpha 阶段，不建议用于关键业务。
+
 ## Roadmap
 
-璁″垝涓殑鏂瑰悜锛?
-- Portable 鍗曟枃浠跺彂甯?- 姝ｅ紡 Windows 瀹夎鍖?- HTTPS / WSS
-- 鏇村畬鍠勭殑杈撳叆娉曚笌蹇嵎閿敮鎸?- 鏂囦欢浼犺緭
-- 濯掍綋鎺у埗
-- 婕旂ず鏂囩鎺у埗
-- 鑷畾涔夊揩鎹烽敭
-- 鏇村畬鍠勭殑璁惧鏉冮檺妯″瀷
+计划中的方向：
+
+- 正式 Windows 安装包
+- HTTPS / WSS
+- 更完善的输入法与快捷键支持
+- 文件传输
+- 媒体控制
+- 演示文稿控制
+- 自定义快捷键
+- 更完善的设备权限模型
+- 正式应用图标与代码签名
 
 ## License
 
-褰撳墠浠撳簱灏氭湭鎸囧畾寮€婧愯鍙瘉銆?
-鍦ㄦ寮忛€夋嫨璁稿彲璇佷箣鍓嶏紝璇蜂笉瑕侀粯璁よ椤圭洰宸茬粡鍏佽浠绘剰鍟嗕笟浣跨敤銆佸啀鍙戝竷鎴栭棴婧愰泦鎴愩€?
-濡傛灉璁″垝寮€鏀句簩娆″紑鍙戯紝寤鸿鍚庣画鏄庣‘閫夋嫨 MIT / Apache-2.0 / GPL 绛夎鍙瘉涔嬩竴銆?
+当前仓库尚未指定开源许可证。
+
+在正式选择许可证之前，请不要默认该项目已经允许任意商业使用、再发布或闭源集成。
+
+如果计划开放二次开发，建议后续明确选择 MIT / Apache-2.0 / GPL 等许可证之一。
