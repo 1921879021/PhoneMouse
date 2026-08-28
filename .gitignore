@@ -13,3 +13,5 @@ PhoneMouse_Alpha_*.zip
 Thumbs.db
 
 artifacts/
+
+*.bak-*
