@@ -1,4 +1,4 @@
-namespace PhoneMouse.Server.Web;
+﻿namespace PhoneMouse.Server.Web;
 
 internal static class TouchpadPage
 {
@@ -152,6 +152,55 @@ internal static class TouchpadPage
             -webkit-user-drag: none !important;
 
             touch-action: none !important;
+        }
+
+
+        #orientation-switch {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            z-index: 12;
+
+            display: grid;
+            grid-template-columns: auto auto auto;
+            gap: 3px;
+
+            padding: 3px;
+
+            transform: translateX(-50%);
+
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 11px;
+
+            background: rgba(255,255,255,0.94);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+            touch-action: manipulation !important;
+        }
+
+
+        #orientation-switch .orientation-option {
+            min-height: 32px;
+            padding: 0 10px;
+
+            border: 0;
+            border-radius: 8px;
+
+            background: transparent;
+            color: #777777;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            white-space: nowrap;
+
+            touch-action: manipulation !important;
+        }
+
+
+        #orientation-switch .orientation-option.active {
+            background: #202124;
+            color: #ffffff;
         }
 
 
@@ -318,7 +367,7 @@ internal static class TouchpadPage
 
             overflow-y: auto;
 
-            padding: 18px;
+            padding: 12px;
 
             background:
                 #f6f7f8;
@@ -344,7 +393,7 @@ internal static class TouchpadPage
                 0 auto;
 
             padding:
-                18px;
+                12px;
 
             border:
                 1px solid #e8e8e8;
@@ -392,7 +441,10 @@ internal static class TouchpadPage
                 100%;
 
             height:
-                190px;
+                180px;
+
+            margin-top:
+                12px;
 
             overflow:
                 hidden;
@@ -502,47 +554,20 @@ internal static class TouchpadPage
 
 
         #open-keyboard-button {
-            width:
-                100%;
-
-            min-height:
-                48px;
-
-            margin-top:
-                16px;
-
-            border:
-                1px solid #202124;
-
-            border-radius:
-                11px;
-
-            background:
-                #202124;
-
-            color:
-                #ffffff;
-
-            font-size:
-                15px;
-
-            font-weight:
-                650;
-
-            touch-action:
-                manipulation;
-
-            -webkit-user-select:
-                none !important;
-
-            user-select:
+            display:
                 none !important;
         }
 
 
-        #open-keyboard-button:disabled {
-            opacity:
-                0.45;
+        #text-editor-shell {
+            position:
+                relative;
+
+            width:
+                100%;
+
+            margin:
+                0;
         }
 
 
@@ -551,13 +576,13 @@ internal static class TouchpadPage
                 100%;
 
             min-height:
-                190px;
+                220px;
 
-            margin-top:
-                16px;
+            margin:
+                0;
 
             padding:
-                14px;
+                14px 14px 76px;
 
             resize:
                 vertical;
@@ -606,15 +631,55 @@ internal static class TouchpadPage
         }
 
 
+        #text-inline-actions {
+            position:
+                absolute;
+
+            left:
+                10px;
+
+            right:
+                10px;
+
+            bottom:
+                10px;
+
+            display:
+                grid;
+
+            grid-template-columns:
+                minmax(0, 1fr) minmax(0, 1fr);
+
+            gap:
+                8px;
+
+            padding-top:
+                8px;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(255,255,255,0),
+                    rgba(255,255,255,0.94) 28%,
+                    #ffffff 100%);
+        }
+
+
         #text-meta {
             margin-top:
-                8px;
+                6px;
 
             display:
                 flex;
 
+            align-items:
+                center;
+
             justify-content:
                 space-between;
+
+            min-height:
+                24px;
 
             color:
                 #999999;
@@ -624,12 +689,18 @@ internal static class TouchpadPage
         }
 
 
+        #text-count {
+            margin-left:
+                auto;
+        }
+
+
         #foreground-status {
             margin-top:
-                14px;
+                8px;
 
             padding:
-                11px 12px;
+                9px 10px;
 
             border:
                 1px solid #e0e0e0;
@@ -675,24 +746,12 @@ internal static class TouchpadPage
         }
 
 
-        #text-actions {
-            margin-top:
-                16px;
-
-            display:
-                grid;
-
-            grid-template-columns:
-                1fr;
-
-            gap:
-                10px;
-        }
-
-
         .text-action-button {
+            min-width:
+                0;
+
             min-height:
-                46px;
+                48px;
 
             border:
                 1px solid #dddddd;
@@ -706,11 +765,20 @@ internal static class TouchpadPage
             color:
                 #222222;
 
+            padding:
+                8px 6px;
+
             font-size:
-                15px;
+                13px;
 
             font-weight:
-                600;
+                650;
+
+            line-height:
+                1.25;
+
+            white-space:
+                normal;
 
             touch-action:
                 manipulation;
@@ -748,20 +816,23 @@ internal static class TouchpadPage
 
 
         #text-result {
-            min-height:
-                20px;
-
             margin-top:
-                14px;
+                8px;
 
             color:
                 #666666;
 
             font-size:
-                13px;
+                12px;
 
             line-height:
-                1.5;
+                1.45;
+        }
+
+
+        #text-result:empty {
+            display:
+                none;
         }
 
 
@@ -778,8 +849,11 @@ internal static class TouchpadPage
 
 
         #text-clear-button {
-            margin-top:
-                12px;
+            margin:
+                0;
+
+            padding:
+                3px 0;
 
             border:
                 0;
@@ -788,10 +862,10 @@ internal static class TouchpadPage
                 transparent;
 
             color:
-                #777777;
+                #8a8a8a;
 
             font-size:
-                13px;
+                12px;
 
             text-decoration:
                 underline;
@@ -863,7 +937,7 @@ internal static class TouchpadPage
     <div id="header">
 
         <div id="title">
-            Phone Mouse · Alpha 0.7.2.3
+            Phone Mouse · Alpha 0.7.2.6.1
         </div>
 
         <div
@@ -898,6 +972,35 @@ internal static class TouchpadPage
     <div
         id="touchpad"
         unselectable="on">
+
+        <div
+            id="orientation-switch"
+            role="group"
+            aria-label="手机摆放方向">
+
+            <button
+                class="orientation-option active"
+                type="button"
+                data-orientation-mode="portrait">
+                竖屏
+            </button>
+
+            <button
+                class="orientation-option"
+                type="button"
+                data-orientation-mode="landscape-left">
+                横放·口左
+            </button>
+
+            <button
+                class="orientation-option"
+                type="button"
+                data-orientation-mode="landscape-right">
+                横放·口右
+            </button>
+
+        </div>
+
 
         <div
             id="hint"
@@ -959,36 +1062,52 @@ internal static class TouchpadPage
 
         <div class="text-card">
 
-            <div
-                id="text-mouse-pad"
-                aria-label="鼠标控制区">
+            <div id="text-editor-shell">
+
+                <textarea
+                    id="text-input"
+                    maxlength="5000"
+                    inputmode="text"
+                    enterkeyhint="done"
+                    autocomplete="off"
+                    autocapitalize="sentences"
+                    spellcheck="true"
+                    placeholder="输入文字，或使用手机键盘麦克风语音输入…"></textarea>
+
+
+                <div id="text-inline-actions">
+
+                    <button
+                        id="type-text-button"
+                        class="text-action-button primary"
+                        type="button"
+                        aria-label="输入到电脑当前窗口"
+                        disabled>
+                        输入到电脑当前窗口
+                    </button>
+
+
+                    <button
+                        id="send-text-button"
+                        class="text-action-button send"
+                        type="button"
+                        aria-label="微信安全发送"
+                        disabled>
+                        微信发送
+                    </button>
+
+                </div>
+
             </div>
-
-
-            <button
-                id="open-keyboard-button"
-                type="button"
-                disabled>
-                打开手机键盘 / 语音输入
-            </button>
-
-
-            <textarea
-                id="text-input"
-                maxlength="5000"
-                inputmode="text"
-                enterkeyhint="done"
-                autocomplete="off"
-                autocapitalize="sentences"
-                spellcheck="true"
-                placeholder="点这里输入文字，或点击上方按钮打开手机键盘后使用麦克风…"></textarea>
 
 
             <div id="text-meta">
 
-                <span>
-                    普通输入：电脑当前窗口必须先处于正确的输入位置
-                </span>
+                <button
+                    id="text-clear-button"
+                    type="button">
+                    清空
+                </button>
 
                 <span id="text-count">
                     0 / 5000
@@ -1000,50 +1119,26 @@ internal static class TouchpadPage
             <div
                 id="foreground-status"
                 class="blocked">
-                正在检查电脑当前前台窗口…
+                正在检查电脑前台窗口…
             </div>
 
 
-            <div id="text-actions">
-
-                <button
-                    id="save-text-button"
-                    class="text-action-button"
-                    type="button"
-                    disabled>
-                    写入 VoiceNotes.txt
-                </button>
+            <div id="text-result"></div>
 
 
-                <button
-                    id="type-text-button"
-                    class="text-action-button primary"
-                    type="button"
-                    disabled>
-                    输入到电脑当前窗口
-                </button>
-
-
-                <button
-                    id="send-text-button"
-                    class="text-action-button send"
-                    type="button"
-                    disabled>
-                    微信安全发送
-                </button>
-
-            </div>
-
-
-            <div id="text-result">
-                首次使用时：点输入框 → 手机键盘麦克风 → 说话 → 选择操作。
+            <div
+                id="text-mouse-pad"
+                aria-label="鼠标控制区">
             </div>
 
 
             <button
-                id="text-clear-button"
-                type="button">
-                清空文字
+                id="open-keyboard-button"
+                type="button"
+                disabled
+                aria-hidden="true"
+                tabindex="-1">
+                打开键盘
             </button>
 
         </div>
@@ -1085,6 +1180,16 @@ internal static class TouchpadPage
     const touchpad =
         document.getElementById(
             "touchpad");
+
+
+    const orientationSwitch =
+        document.getElementById(
+            "orientation-switch");
+
+
+    const orientationOptions =
+        [...document.querySelectorAll(
+            ".orientation-option")];
 
 
     const status =
@@ -1160,11 +1265,6 @@ internal static class TouchpadPage
     const textCount =
         document.getElementById(
             "text-count");
-
-
-    const saveTextButton =
-        document.getElementById(
-            "save-text-button");
 
 
     const typeTextButton =
@@ -1258,10 +1358,6 @@ internal static class TouchpadPage
             true;
 
 
-        saveTextButton.disabled =
-            true;
-
-
         typeTextButton.disabled =
             true;
 
@@ -1291,10 +1387,6 @@ internal static class TouchpadPage
 
 
         openKeyboardButton.disabled =
-            false;
-
-
-        saveTextButton.disabled =
             false;
 
 
@@ -1506,6 +1598,223 @@ internal static class TouchpadPage
             return true;
         }
     }
+
+
+    // =====================================================
+    // 手机摆放方向
+    // =====================================================
+
+    const ORIENTATION_MODE_KEY =
+        "PhoneMouse.OrientationMode";
+
+
+    const VALID_ORIENTATION_MODES =
+        new Set(
+            [
+                "portrait",
+                "landscape-left",
+                "landscape-right"
+            ]);
+
+
+    let orientationMode =
+        localStorage.getItem(
+            ORIENTATION_MODE_KEY) ||
+        "portrait";
+
+
+    if (
+        !VALID_ORIENTATION_MODES.has(
+            orientationMode)
+    )
+    {
+        orientationMode =
+            "portrait";
+    }
+
+
+    function transformGestureDelta(
+        dx,
+        dy)
+    {
+        if (
+            orientationMode ===
+                "landscape-left"
+        )
+        {
+            // 手机横放，充电口朝左。
+            return {
+                dx:
+                    -dy,
+
+                dy:
+                    dx
+            };
+        }
+
+
+        if (
+            orientationMode ===
+                "landscape-right"
+        )
+        {
+            // 手机横放，充电口朝右。
+            return {
+                dx:
+                    dy,
+
+                dy:
+                    -dx
+            };
+        }
+
+
+        return {
+            dx:
+                dx,
+
+            dy:
+                dy
+        };
+    }
+
+
+    function updateOrientationButtons()
+    {
+        for (
+            const option of
+                orientationOptions
+        )
+        {
+            option.classList.toggle(
+                "active",
+                option.dataset.orientationMode ===
+                    orientationMode);
+        }
+    }
+
+
+    function setOrientationMode(
+        mode)
+    {
+        if (
+            !VALID_ORIENTATION_MODES.has(
+                mode)
+        )
+        {
+            return;
+        }
+
+
+        if (
+            mode !==
+                orientationMode
+        )
+        {
+            emergencyRelease();
+
+
+            orientationMode =
+                mode;
+
+
+            localStorage.setItem(
+                ORIENTATION_MODE_KEY,
+                orientationMode);
+        }
+
+
+        updateOrientationButtons();
+
+
+        debug.textContent =
+            orientationMode ===
+                "portrait"
+                ? "方向：竖屏"
+                : orientationMode ===
+                    "landscape-left"
+                    ? "方向：横放 · 充电口左"
+                    : "方向：横放 · 充电口右";
+    }
+
+
+    for (
+        const option of
+            orientationOptions
+    )
+    {
+        for (
+            const eventName of
+                [
+                    "pointerdown",
+                    "pointermove",
+                    "pointerup",
+                    "pointercancel"
+                ]
+        )
+        {
+            option.addEventListener(
+                eventName,
+                e =>
+                {
+                    e.stopPropagation();
+                });
+        }
+
+
+        option.addEventListener(
+            "touchstart",
+            e =>
+            {
+                e.stopPropagation();
+            },
+            {
+                passive:
+                    true
+            });
+
+
+        option.addEventListener(
+            "touchend",
+            e =>
+            {
+                e.preventDefault();
+                e.stopPropagation();
+
+
+                setOrientationMode(
+                    option.dataset.orientationMode);
+            },
+            {
+                passive:
+                    false
+            });
+
+
+        option.addEventListener(
+            "click",
+            e =>
+            {
+                e.preventDefault();
+                e.stopPropagation();
+
+
+                setOrientationMode(
+                    option.dataset.orientationMode);
+            });
+    }
+
+
+    orientationSwitch.addEventListener(
+        "contextmenu",
+        e =>
+        {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+
+    updateOrientationButtons();
 
 
     // =====================================================
@@ -1882,10 +2191,6 @@ internal static class TouchpadPage
                     true;
 
 
-                saveTextButton.disabled =
-                    true;
-
-
                 typeTextButton.disabled =
                     true;
 
@@ -2154,6 +2459,10 @@ internal static class TouchpadPage
         false;
 
 
+    let lastScrollCenterX =
+        null;
+
+
     let lastScrollCenterY =
         null;
 
@@ -2386,6 +2695,13 @@ internal static class TouchpadPage
                     [...pointers.values()];
 
 
+                lastScrollCenterX =
+                    (
+                        values[0].x +
+                        values[1].x
+                    ) / 2;
+
+
                 lastScrollCenterY =
                     (
                         values[0].y +
@@ -2451,6 +2767,13 @@ internal static class TouchpadPage
                     [...pointers.values()];
 
 
+                const centerX =
+                    (
+                        values[0].x +
+                        values[1].x
+                    ) / 2;
+
+
                 const centerY =
                     (
                         values[0].y +
@@ -2459,24 +2782,40 @@ internal static class TouchpadPage
 
 
                 if (
+                    lastScrollCenterX !==
+                        null &&
                     lastScrollCenterY !==
                         null
                 )
                 {
-                    const dy =
+                    const rawDx =
+                        centerX -
+                        lastScrollCenterX;
+
+
+                    const rawDy =
                         centerY -
                         lastScrollCenterY;
 
 
+                    const logicalDelta =
+                        transformGestureDelta(
+                            rawDx,
+                            rawDy);
+
+
+                    // 新默认方向：
+                    // 双指向上 -> 页面向下
+                    // 双指向下 -> 页面向上
                     const direction =
                         naturalScrolling
-                            ? 1
-                            : -1;
+                            ? -1
+                            : 1;
 
 
                     const scrollDelta =
                         Math.round(
-                            dy *
+                            logicalDelta.dy *
                             8 *
                             scrollSpeed *
                             direction);
@@ -2501,6 +2840,10 @@ internal static class TouchpadPage
                             `Scroll ${scrollDelta}`;
                     }
                 }
+
+
+                lastScrollCenterX =
+                    centerX;
 
 
                 lastScrollCenterY =
@@ -2579,9 +2922,15 @@ internal static class TouchpadPage
             }
 
 
+            const logicalDelta =
+                transformGestureDelta(
+                    dx,
+                    dy);
+
+
             queueMove(
-                dx,
-                dy);
+                logicalDelta.dx,
+                logicalDelta.dy);
 
 
             clearSelection();
@@ -2663,6 +3012,10 @@ internal static class TouchpadPage
                 dragging =
                     false;
             }
+
+
+            lastScrollCenterX =
+                null;
 
 
             lastScrollCenterY =
@@ -2838,6 +3191,19 @@ internal static class TouchpadPage
     // 阻止手机浏览器默认行为
     // =====================================================
 
+    function isOrientationControlTarget(
+        target)
+    {
+        return (
+            target instanceof
+                Element &&
+            target.closest(
+                "#orientation-switch") !==
+                null
+        );
+    }
+
+
     touchpad.addEventListener(
         "contextmenu",
         e =>
@@ -2904,6 +3270,15 @@ internal static class TouchpadPage
         "touchstart",
         e =>
         {
+            if (
+                isOrientationControlTarget(
+                    e.target)
+            )
+            {
+                return;
+            }
+
+
             clearSelection();
 
             e.preventDefault();
@@ -2918,6 +3293,15 @@ internal static class TouchpadPage
         "touchmove",
         e =>
         {
+            if (
+                isOrientationControlTarget(
+                    e.target)
+            )
+            {
+                return;
+            }
+
+
             clearSelection();
 
             e.preventDefault();
@@ -2932,6 +3316,15 @@ internal static class TouchpadPage
         "touchend",
         e =>
         {
+            if (
+                isOrientationControlTarget(
+                    e.target)
+            )
+            {
+                return;
+            }
+
+
             clearSelection();
 
             e.preventDefault();
@@ -2984,6 +3377,10 @@ internal static class TouchpadPage
 
     let textPadMultiTouch =
         false;
+
+
+    let textPadLastScrollCenterX =
+        null;
 
 
     let textPadLastScrollCenterY =
@@ -3111,6 +3508,10 @@ internal static class TouchpadPage
 
         textPadMultiTouch =
             false;
+
+
+        textPadLastScrollCenterX =
+            null;
 
 
         textPadLastScrollCenterY =
@@ -3245,6 +3646,13 @@ internal static class TouchpadPage
                     [...textPadPointers.values()];
 
 
+                textPadLastScrollCenterX =
+                    (
+                        values[0].x +
+                        values[1].x
+                    ) / 2;
+
+
                 textPadLastScrollCenterY =
                     (
                         values[0].y +
@@ -3306,6 +3714,13 @@ internal static class TouchpadPage
                     [...textPadPointers.values()];
 
 
+                const centerX =
+                    (
+                        values[0].x +
+                        values[1].x
+                    ) / 2;
+
+
                 const centerY =
                     (
                         values[0].y +
@@ -3314,23 +3729,36 @@ internal static class TouchpadPage
 
 
                 if (
+                    textPadLastScrollCenterX !==
+                        null &&
                     textPadLastScrollCenterY !==
                         null)
                 {
-                    const dy =
+                    const rawDx =
+                        centerX -
+                        textPadLastScrollCenterX;
+
+
+                    const rawDy =
                         centerY -
                         textPadLastScrollCenterY;
 
 
+                    const logicalDelta =
+                        transformGestureDelta(
+                            rawDx,
+                            rawDy);
+
+
                     const direction =
                         naturalScrolling
-                            ? 1
-                            : -1;
+                            ? -1
+                            : 1;
 
 
                     const scrollDelta =
                         Math.round(
-                            dy *
+                            logicalDelta.dy *
                             8 *
                             scrollSpeed *
                             direction);
@@ -3350,6 +3778,10 @@ internal static class TouchpadPage
                             });
                     }
                 }
+
+
+                textPadLastScrollCenterX =
+                    centerX;
 
 
                 textPadLastScrollCenterY =
@@ -3417,9 +3849,15 @@ internal static class TouchpadPage
             }
 
 
+            const logicalDelta =
+                transformGestureDelta(
+                    dx,
+                    dy);
+
+
             queueMove(
-                dx,
-                dy);
+                logicalDelta.dx,
+                logicalDelta.dy);
 
 
             e.preventDefault();
@@ -3648,7 +4086,7 @@ internal static class TouchpadPage
 
 
         sendTextButton.textContent =
-            `微信安全发送（${shortcut}）`;
+            `微信发送（${shortcut}）`;
 
 
         sendTextButton.disabled =
@@ -3842,7 +4280,7 @@ internal static class TouchpadPage
 
 
         textResult.textContent =
-            "点击“打开手机键盘 / 语音输入”，再使用系统键盘麦克风。";
+            "";
 
 
         textResult.className =
@@ -3914,7 +4352,7 @@ internal static class TouchpadPage
 
 
         textResult.textContent =
-            "键盘已请求打开。点击系统键盘上的麦克风即可语音转文字。";
+            "";
 
 
         textResult.className =
@@ -4004,20 +4442,11 @@ internal static class TouchpadPage
         () =>
         {
             textResult.textContent =
-                "可以直接打字，也可以点击手机系统键盘上的麦克风进行语音输入。";
+                "";
 
 
             textResult.className =
                 "";
-        });
-
-
-    saveTextButton.addEventListener(
-        "click",
-        () =>
-        {
-            submitTextAction(
-                "text_save");
         });
 
 
@@ -4138,6 +4567,10 @@ internal static class TouchpadPage
 
         multiTouchGesture =
             false;
+
+
+        lastScrollCenterX =
+            null;
 
 
         lastScrollCenterY =
