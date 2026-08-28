@@ -2,6 +2,13 @@ name: Build Portable EXE
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: "Portable version name (without leading v)"
+        required: true
+        default: "0.7.2.6.1-alpha"
+        type: string
+
   push:
     tags:
       - "v*"
@@ -15,29 +22,40 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup .NET 10
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: "10.0.400"
 
-      - name: Build self-contained Portable EXE
+      - name: Resolve version
+        id: version
         shell: pwsh
         run: |
           if ("${{ github.ref_type }}" -eq "tag") {
             $version = "${{ github.ref_name }}".TrimStart("v")
           }
           else {
-            $version = "0.7.2.3-alpha"
+            $version = "${{ inputs.version }}"
           }
 
-          ./scripts/Publish-Portable.ps1 -Version $version
+          if ([string]::IsNullOrWhiteSpace($version)) {
+            throw "Version is empty."
+          }
+
+          "value=$version" >> $env:GITHUB_OUTPUT
+          Write-Host "Resolved version: $version"
+
+      - name: Build self-contained Portable EXE
+        shell: pwsh
+        run: |
+          ./scripts/Publish-Portable.ps1 -Version "${{ steps.version.outputs.value }}"
 
       - name: Upload Portable artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PhoneMouse-Portable-win-x64
+          name: PhoneMouse-Portable-win-x64-${{ steps.version.outputs.value }}
           path: |
             artifacts/*.zip
             artifacts/*.sha256.txt
